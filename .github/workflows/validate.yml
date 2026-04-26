@@ -1,0 +1,36 @@
+name: "Validate Bundle"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+concurrency:
+  group: validate-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: "Validate SNOW bundle"
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Validate bundle (dev target)
+        run: databricks bundle validate
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_AUTH_TYPE: oauth-m2m
+          DATABRICKS_BUNDLE_ENV: dev
+
+      - name: Summary
+        if: success()
+        run: echo "✅ SNOW bundle validation passed" >> $GITHUB_STEP_SUMMARY

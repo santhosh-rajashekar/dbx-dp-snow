@@ -1,0 +1,75 @@
+name: "Deploy SNOW to Dev"
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: "Deploy SNOW bundle to dev"
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Validate bundle
+        run: databricks bundle validate
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_AUTH_TYPE: oauth-m2m
+          DATABRICKS_BUNDLE_ENV: dev
+
+      - name: Deploy bundle
+        run: databricks bundle deploy
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_AUTH_TYPE: oauth-m2m
+          DATABRICKS_BUNDLE_ENV: dev
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "## ✅ SNOW Dev Deployment Successful" >> $GITHUB_STEP_SUMMARY
+          echo "**Domain:** IT Service Management" >> $GITHUB_STEP_SUMMARY
+          echo "**Catalog:** snow_product" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+
+  run-pipeline:
+    name: "Run SNOW pipeline"
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[full-setup]')
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Run pipeline job
+        run: databricks bundle run snow_data_product
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
+          DATABRICKS_AUTH_TYPE: oauth-m2m
+          DATABRICKS_BUNDLE_ENV: dev
+
+      - name: Summary
+        if: success()
+        run: echo "✅ SNOW pipeline complete — Service Health data product ready" >> $GITHUB_STEP_SUMMARY

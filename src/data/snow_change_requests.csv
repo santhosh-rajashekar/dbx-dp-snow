@@ -1,0 +1,9 @@
+change_id,description,change_type,risk,state,affected_application_id,requested_by,planned_start,planned_end,success
+CHG-001,SAP kernel upgrade to 7.93,Normal,Medium,Closed,APP-001,M. Klein,2026-04-15 22:00:00,2026-04-16 02:00:00,true
+CHG-002,ServiceNow Tokyo patch 3,Normal,Low,Closed,APP-002,K. Schmidt,2026-04-14 20:00:00,2026-04-14 23:00:00,true
+CHG-003,Salesforce Spring 26 release,Standard,Low,Closed,APP-003,M. Weber,2026-04-13 18:00:00,2026-04-13 19:00:00,true
+CHG-004,Emergency mainframe CICS fix,Emergency,High,Closed,APP-004,P. Fischer,2026-04-10 03:00:00,2026-04-10 05:00:00,true
+CHG-005,Databricks Runtime 16.x upgrade,Normal,Medium,Closed,APP-005,S. Rajashekar,2026-04-12 21:00:00,2026-04-13 01:00:00,true
+CHG-006,Oracle EBS critical security patch,Emergency,High,Closed,APP-009,H. Schulz,2026-04-09 01:00:00,2026-04-09 06:00:00,false
+CHG-007,CMS PHP version upgrade,Normal,Medium,Scheduled,APP-007,L. Becker,2026-04-20 22:00:00,2026-04-21 02:00:00,
+CHG-008,Power BI gateway migration,Normal,Low,Closed,APP-010,R. Koch,2026-04-11 19:00:00,2026-04-11 21:00:00,true

@@ -1,0 +1,45 @@
+# ============================================================
+# SNOW Data Product — Databricks Asset Bundle
+# Domain: IT Service Management | Catalog: snow_product
+# ============================================================
+# This bundle deploys the SNOW domain data product independently:
+# - 1 Unity Catalog domain (snow_product)
+# - 4 schemas (bronze, silver, gold, governance)
+# - 3 notebooks (setup, pipeline, governance)
+# - 1 orchestration job (runs all notebooks in order)
+# ============================================================
+
+bundle:
+  name: dbx-dp-snow
+  engine: direct
+
+variables:
+  storage_account:
+    description: "ADLS storage account name for managed locations"
+    default: "sadpsddbxdev"
+  storage_container:
+    description: "ADLS container for data products"
+    default: "data-products"
+  snow_catalog:
+    description: "SNOW domain catalog name"
+    default: "snow_product"
+
+include:
+  - resources/*.yml
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-7405614225278648.8.azuredatabricks.net
+
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-7405614225278648.8.azuredatabricks.net
+    variables:
+      snow_catalog: "snow_product"
+    permissions:
+      - user_name: skarotirajashekar@godevsuite060.onmicrosoft.com
+        level: CAN_MANAGE

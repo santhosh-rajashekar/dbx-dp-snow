@@ -1,0 +1,13 @@
+incident_id,short_description,priority,state,category,assigned_to,assignment_group,affected_application_id,created_at,resolved_at,sla_breached
+INC-001,SAP ERP login failures across Finance,1,Resolved,Access,M. Klein,SAP-Support,APP-001,2026-04-10 08:30:00,2026-04-10 12:45:00,false
+INC-002,ServiceNow workflow engine timeout,2,Resolved,Performance,K. Schmidt,ITSM-Support,APP-002,2026-04-11 09:15:00,2026-04-11 14:30:00,false
+INC-003,Salesforce API rate limit exceeded,2,In Progress,Integration,M. Weber,CRM-Support,APP-003,2026-04-12 10:00:00,,false
+INC-004,Mainframe HR batch job failure,3,Resolved,Software,P. Fischer,Legacy-Support,APP-004,2026-04-09 06:00:00,2026-04-09 18:00:00,true
+INC-005,Databricks cluster auto-scaling issue,1,Resolved,Infrastructure,S. Rajashekar,Data-Platform,APP-005,2026-04-13 07:45:00,2026-04-13 09:15:00,false
+INC-006,M365 Teams meeting drops,3,Resolved,Network,A. Wagner,M365-Support,APP-006,2026-04-08 14:00:00,2026-04-08 16:30:00,false
+INC-007,CMS plugin security vulnerability,2,New,Security,L. Becker,Web-Support,APP-007,2026-04-14 11:00:00,,false
+INC-008,Jira board permissions issue,4,Resolved,Access,T. Hoffmann,Atlassian-Support,APP-008,2026-04-07 09:00:00,2026-04-07 10:00:00,false
+INC-009,Oracle EBS month-end reconciliation error,1,Resolved,Software,H. Schulz,Oracle-Support,APP-009,2026-04-11 05:00:00,2026-04-11 15:00:00,true
+INC-010,Power BI dashboard refresh timeout,3,Resolved,Performance,R. Koch,BI-Support,APP-010,2026-04-12 08:00:00,2026-04-12 10:00:00,false
+INC-011,SAP ERP transport stuck in queue,2,On Hold,Software,M. Klein,SAP-Support,APP-001,2026-04-14 13:00:00,,false
+INC-012,Databricks Unity Catalog permissions error,2,Resolved,Access,S. Rajashekar,Data-Platform,APP-005,2026-04-13 14:00:00,2026-04-13 15:30:00,false

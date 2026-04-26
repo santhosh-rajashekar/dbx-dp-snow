@@ -1,0 +1,22 @@
+# SNOW domain schemas — Medallion + Governance
+resources:
+  schemas:
+    snow_bronze:
+      name: bronze
+      catalog_name: ${var.snow_catalog}
+      comment: "Raw Zone | Ingested from ServiceNow | Owner: ITSM Team"
+
+    snow_silver:
+      name: silver
+      catalog_name: ${var.snow_catalog}
+      comment: "Curated Zone | Cleansed and enriched | Owner: ITSM Team"
+
+    snow_gold:
+      name: gold
+      catalog_name: ${var.snow_catalog}
+      comment: "Product Zone | Business-ready data products | Owner: ITSM Team"
+
+    snow_governance:
+      name: governance
+      catalog_name: ${var.snow_catalog}
+      comment: "Governance Zone | Quality, contracts, observability | Owner: ITSM Team"

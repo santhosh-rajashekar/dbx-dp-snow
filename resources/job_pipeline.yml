@@ -1,0 +1,26 @@
+# SNOW domain pipeline job — full setup + pipeline + governance
+resources:
+  jobs:
+    snow_data_product:
+      name: "SNOW Data Product — Full Pipeline"
+      description: "Runs all SNOW domain notebooks: setup → pipeline → governance"
+
+      tasks:
+        - task_key: setup
+          description: "Create catalog, schemas, tables, tags, grants"
+          notebook_task:
+            notebook_path: ../src/notebooks/00_Snow_Setup.ipynb
+
+        - task_key: pipeline
+          depends_on:
+            - task_key: setup
+          description: "SNOW: Bronze → Silver → Gold (Service Health)"
+          notebook_task:
+            notebook_path: ../src/notebooks/01_Snow_Pipeline.ipynb
+
+        - task_key: governance
+          depends_on:
+            - task_key: pipeline
+          description: "Quality checks, contracts, observability, CDF, UDFs, sharing"
+          notebook_task:
+            notebook_path: ../src/notebooks/02_Snow_Governance.ipynb
